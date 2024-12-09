@@ -41,6 +41,8 @@ const PersonaSchema = new mongoose.Schema({
   },
 });
 
+const PersonaModel = mongoose.model('Persona', PersonaSchema);
+
 PersonaSchema.statics.toAPI = (doc) => ({
   name: doc.name,
   age: doc.age,
@@ -57,5 +59,4 @@ PersonaSchema.statics.deleteById = (id) => {
   return PersonaModel.deleteOne(searchId);
 };
 
-const PersonaModel = mongoose.model('Persona', PersonaSchema);
 module.exports = PersonaModel;
