@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Masquerade</title>
+  <link rel="shortcut icon" href="/assets/img/favicon.png"/>
+  <link rel="stylesheet" type="text/css" href="/assets/style.css"/>
+</head>
+<body>
+  <nav>
+    <a href="/messages"></a>
+    <div class="navlink"><a href="/list">My Characters</a></div>
+    <div class="navlink"><a href="/logout">Logout</a></div>
+  </nav>
+  <h1>Send a Message</h1>
+  <form id="messageForm" method="POST" action="/createMessage" class="message-form">
+    <label for="persona">Persona:</label>
+    <select id="persona" name="persona">
+      {{#each personas}}
+        <option value="{{this._id}}">{{this.name}}</option>
+      {{/each}}
+    </select>
+    <br>
+    <label for="content">Message:</label>
+    <textarea id="content" name="content" placeholder="Type as your persona"></textarea>
+    <br>
+    <button type="submit">Send</button>
+  </form>
+
+  <h2>Message Feed</h2>
+  <div id="messageFeed" class="message-feed">
+    {{#each messages}}
+      <div class="message">
+        <h3>{{this.persona.name}}</h3>
+        <p>{{this.content}}</p>
+        <small>{{formatDate this.createdDate}}</small>
+      </div>
+    {{/each}}
+  </div>
+</body>
+</html>
