@@ -63,7 +63,7 @@ const createPersona = async (req, res) => {
 const deletePersona = async (req, res) => {
   try {
     console.log(req.body.id);
-    await Persona.deleteById(req.body.id);
+    await Persona.findByIdAndDelete(req.body.id);
     return res.status(200).json({ message: 'Character deleted successfully.' });
   } catch (err) {
     console.log(err);

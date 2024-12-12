@@ -51,12 +51,4 @@ PersonaSchema.statics.toAPI = (doc) => ({
   image_url: doc.image_url,
 });
 
-PersonaSchema.statics.deleteById = (id) => {
-  const searchId = {
-    _id: id,
-  };
-
-  return PersonaModel.deleteOne(searchId);
-};
-
 module.exports = PersonaModel;
