@@ -53,9 +53,41 @@ const signup = async (req, res) => {
   }
 };
 
+const accountPage = (req, res) => res.render('account');
+
+const changePassword = async (req, res) => {
+  const { username } = req.session.account;
+  const oldPass = `${req.body.oldPass}`;
+  const newPass = `${req.body.newPass}`;
+  const newPass2 = `${req.body.newPass2}`;
+
+  if (!oldPass || !newPass || !newPass2) {
+    return res.status(400).json({ error: 'All fields are required.' });
+  }
+
+  if (newPass !== newPass2) {
+    return res.status(400).json({ error: 'New passwords do not match.' });
+  }
+
+  return Account.authenticate(username, oldPass, async (err, account) => {
+    if (err || !account) {
+      return res.status(401).json({ error: 'Wrong password.' });
+    }
+
+    try {
+      await Account.changePassword(username, newPass, () => {});
+      return res.json({ message: 'Password changed successfully.' });
+    } catch (error) {
+      return res.status(500).json({ error: `An error occurred: ${error}` });
+    }
+  });
+};
+
 module.exports = {
   loginPage,
   login,
   logout,
   signup,
+  accountSettingsPage: accountPage,
+  changePassword,
 };

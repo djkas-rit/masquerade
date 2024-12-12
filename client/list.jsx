@@ -56,9 +56,4 @@ const PersonaList = () => {
   return <div className="persona-list">{personaCards}</div>;
 };
 
-const init = () => {
-  const root = createRoot(document.getElementById('app'));
-  root.render(<PersonaList />);
-};
-
-window.onload = init;
+export default PersonaList;

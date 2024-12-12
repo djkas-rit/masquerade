@@ -1,11 +1,12 @@
 const path = require('path');
-const { login } = require('./server/controllers/Account');
+const { login, accountSettings } = require('./server/controllers/Account');
 
 module.exports = {
   entry: {
     login: './client/login.jsx',
     maker: './client/maker.jsx',
     list: './client/list.jsx',
+    account: './client/account.jsx',
   },
   module: {
     rules: [
