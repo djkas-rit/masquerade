@@ -9,7 +9,6 @@ const submitPersonaData = (e) => {
   const nickname = e.target.querySelector('#persona-nickname').value;
   const pronouns = e.target.querySelector('#persona-pronouns').value;
   const age = e.target.querySelector('#persona-age').value;
-  const level = e.target.querySelector('#persona-level').value;
   const bio = e.target.querySelector('#persona-bio').value;
   const likes = e.target.querySelector('#persona-likes').value;
   const dislikes = e.target.querySelector('#persona-dislikes').value;
@@ -18,7 +17,7 @@ const submitPersonaData = (e) => {
     helper.handleError('A name is required.');
     return false;
   }
-  helper.sendPost(e.target.action, { name, nickname, pronouns, age, level, bio, likes, dislikes, image_url });
+  helper.sendPost(e.target.action, { name, nickname, pronouns, age, bio, likes, dislikes, image_url });
   return false;
 };
 
@@ -32,8 +31,6 @@ const PersonaForm = () => (
     <input id="persona-pronouns" type="text" name="pronouns" placeholder="Enter pronouns" />
     <label htmlFor="age">Age:</label>
     <input id="persona-age" type="number" min="0" name="age" />
-    <label htmlFor="level">Level:</label>
-    <input id="persona-level" type="number" min="0" max="100" name="level" />
     <label htmlFor="bio">Bio:</label>
     <textarea id="persona-bio" name="bio" placeholder="Enter your bio" />
     <label htmlFor="likes">Likes:</label>

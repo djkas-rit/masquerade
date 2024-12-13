@@ -45,9 +45,12 @@ const PersonaList = () => {
       <div key={persona._id} className="persona-card">
         <img src={persona.image_url} alt={persona.name} className="persona-image" />
         <h3 className="persona-name">Name: {persona.name}</h3>
+        {persona.nickname && <h3 className="persona-nickname">Nickname(s): {persona.nickname}</h3>}
+        {persona.pronouns && <h3 className="persona-pronouns">Pronouns: {persona.pronouns}</h3>}
         <h3 className="persona-age">Age: {persona.age}</h3>
-        <h3 className="persona-level">Level {persona.level}</h3>
         <h3 className="persona-bio">Bio: {persona.bio}</h3>
+        {persona.likes && <h3 className="persona-likes">Likes: {persona.likes}</h3>}
+        {persona.dislikes && <h3 className="persona-dislikes">Dislikes: {persona.dislikes}</h3>}
         <button onClick={() => handleDelete(persona._id)}>Delete</button>
       </div>
     );

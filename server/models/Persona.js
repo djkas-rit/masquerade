@@ -21,11 +21,6 @@ const PersonaSchema = new mongoose.Schema({
     type: Number,
     min: 0,
   },
-  level: {
-    type: Number,
-    min: 0,
-    max: 100,
-  },
   bio: {
     type: String,
   },

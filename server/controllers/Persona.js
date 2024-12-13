@@ -8,14 +8,13 @@ const listPage = (req, res) => res.render('list');
 const getPersonas = async (req, res) => {
   try {
     const query = { owner: req.session.account._id };
-    let docs = await Persona.find(query).select('name age level bio image_url _id').lean().exec();
+    let docs = await Persona.find(query).select('name age bio image_url _id').lean().exec();
 
     // assign placeholder values for missing fields
     docs = docs.map((doc) => ({
       _id: doc._id,
       name: doc.name || 'Unknown',
       age: doc.age || '???',
-      level: doc.level || 'Unknown',
       bio: doc.bio || 'No bio available',
       image_url: doc.image_url || 'No image available',
     }));
@@ -37,7 +36,6 @@ const createPersona = async (req, res) => {
     nickname: req.body.nickname || '',
     pronouns: req.body.pronouns || '',
     age: req.body.age || null,
-    level: req.body.level || null,
     bio: req.body.bio || '',
     likes: req.body.likes || '',
     dislikes: req.body.dislikes || '',
@@ -53,7 +51,6 @@ const createPersona = async (req, res) => {
       nickname: newPersona.nickname,
       pronouns: newPersona.pronouns,
       age: newPersona.age,
-      level: newPersona.level,
       bio: newPersona.bio,
       likes: newPersona.likes,
       dislikes: newPersona.dislikes,
