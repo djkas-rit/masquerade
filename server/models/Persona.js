@@ -11,24 +11,32 @@ const PersonaSchema = new mongoose.Schema({
     trim: true,
     set: setName,
   },
+  nickname: {
+    type: String,
+  },
+  pronouns: {
+    type: String,
+  },
   age: {
     type: Number,
     min: 0,
-    required: true,
   },
   level: {
     type: Number,
     min: 0,
     max: 100,
-    required: true,
   },
   bio: {
     type: String,
-    required: true,
+  },
+  likes: {
+    type: String,
+  },
+  dislikes: {
+    type: String,
   },
   image_url: {
     type: String,
-    required: true,
   },
   owner: {
     type: mongoose.Schema.ObjectId,

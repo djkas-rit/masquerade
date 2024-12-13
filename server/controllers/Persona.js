@@ -28,16 +28,20 @@ const getPersonas = async (req, res) => {
 };
 
 const createPersona = async (req, res) => {
-  if (!req.body.name || !req.body.age || !req.body.level || !req.body.bio || !req.body.image_url) {
-    return res.status(400).json({ error: 'Name, age, level, bio, and image URL are all required.' });
+  if (!req.body.name) {
+    return res.status(400).json({ error: 'Name is required.' });
   }
 
   const personaData = {
     name: req.body.name,
-    age: req.body.age,
-    level: req.body.level,
-    bio: req.body.bio,
-    image_url: req.body.image_url,
+    nickname: req.body.nickname || '',
+    pronouns: req.body.pronouns || '',
+    age: req.body.age || null,
+    level: req.body.level || null,
+    bio: req.body.bio || '',
+    likes: req.body.likes || '',
+    dislikes: req.body.dislikes || '',
+    image_url: req.body.image_url || '',
     owner: req.session.account._id,
   };
 
@@ -46,9 +50,13 @@ const createPersona = async (req, res) => {
     await newPersona.save();
     return res.status(201).json({
       name: newPersona.name,
+      nickname: newPersona.nickname,
+      pronouns: newPersona.pronouns,
       age: newPersona.age,
       level: newPersona.level,
       bio: newPersona.bio,
+      likes: newPersona.likes,
+      dislikes: newPersona.dislikes,
       image_url: newPersona.image_url,
     });
   } catch (err) {
