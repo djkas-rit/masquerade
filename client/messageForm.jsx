@@ -1,8 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 const MessageForm = ({ personas }) => {
     const [content, setContent] = useState('');
-    const [persona, setPersona] = useState(personas.length > 0 ? personas[0]._id : '');
+    const [persona, setPersona] = useState('');
+
+    useEffect(() => {
+        if (personas.length > 0) {
+            setPersona(personas[0]._id);
+        }
+    }, [personas]);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -27,7 +33,7 @@ const MessageForm = ({ personas }) => {
             </select>
             <br />
             <label htmlFor="content">Message:</label>
-            <textarea id="content" name="content" placeholder="Type as your persona" value={content} onChange={(e) => setContent(e.target.value)}></textarea>
+            <textarea id="content" name="content" placeholder="Type as your character..." value={content} onChange={(e) => setContent(e.target.value)}></textarea>
             <br />
             <button type="submit">Send</button>
         </form>
