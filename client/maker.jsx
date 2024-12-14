@@ -1,7 +1,7 @@
 const helper = require('./helper');
 const React = require('react');
 const { createRoot } = require('react-dom/client');
-const NavbarComponent = require('./Navbar.jsx').default;
+const NavbarComponent = require('./navbar.jsx').default;
 
 const submitPersonaData = (e) => {
   e.preventDefault();

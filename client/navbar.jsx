@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Navbar = ({ isLoggedIn }) => {
+const navbar = ({ isLoggedIn }) => {
   return (
     <nav>
       {isLoggedIn ? (
@@ -19,4 +19,4 @@ const Navbar = ({ isLoggedIn }) => {
   );
 };
 
-export default Navbar;
+export default navbar;
