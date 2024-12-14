@@ -5,9 +5,9 @@ const PasswordChangeForm = require('./PasswordChangeForm.jsx').default;
 const PersonaList = require('./list.jsx').default;
 
 const getSuscriptionStatus = async () => {
-  // get the isPro status for the current user session
-  const response = await fetch('/isPro');
+  const response = await fetch('/getProStatus');
   const data = await response.json();
+  console.log(data.isPro);
   return data.isPro;
 };
 
@@ -54,8 +54,8 @@ const AccountPage = ({ isPro }) => (
   </div>
 );
 
-const init = () => {
-  const isPro = getSuscriptionStatus();
+const init = async () => {
+  const isPro = await getSuscriptionStatus();
 
   const root = createRoot(document.getElementById('app'));
   
