@@ -29,6 +29,7 @@ const router = (app) => {
   app.post('/unsubscribe', mid.requiresLogin, controllers.Account.unsubscribe);
 
   app.get('/', mid.requiresSecure, mid.requiresLogout, controllers.Account.loginPage);
+  app.get('/*', controllers.notFound);
 };
 
 module.exports = router;
