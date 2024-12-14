@@ -7,6 +7,7 @@ module.exports = {
     maker: './client/maker.jsx',
     list: './client/list.jsx',
     account: './client/account.jsx',
+    messages: './client/messages.jsx',
   },
   module: {
     rules: [

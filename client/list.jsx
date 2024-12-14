@@ -1,6 +1,5 @@
 const React = require('react');
 const { useState, useEffect } = React;
-const { createRoot } = require('react-dom/client');
 
 const PersonaList = () => {
   const [personas, setPersonas] = useState([]);
@@ -43,7 +42,6 @@ const PersonaList = () => {
   const personaCards = personas.map((persona) => {
     return (
       <div key={persona._id} className="persona-card">
-        <img src={persona.image_url} alt={persona.name} className="persona-image" />
         <h3 className="persona-name">Name: {persona.name}</h3>
         {persona.nickname && <h3 className="persona-nickname">Nickname(s): {persona.nickname}</h3>}
         {persona.pronouns && <h3 className="persona-pronouns">Pronouns: {persona.pronouns}</h3>}

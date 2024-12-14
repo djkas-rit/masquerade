@@ -1,6 +1,7 @@
 const helper = require('./helper');
 const React = require('react');
 const { createRoot } = require('react-dom/client');
+const NavbarComponent = require('./Navbar.jsx').default;
 
 const submitPersonaData = (e) => {
   e.preventDefault();
@@ -45,7 +46,15 @@ const PersonaForm = () => (
 
 const init = () => {
   const root = createRoot(document.getElementById('app'));
-  root.render(<PersonaForm />);
+  root.render(
+    <>
+    <NavbarComponent isLoggedIn={true} />
+    <div id="content">
+      <h1>Create a new character</h1>
+      <PersonaForm />
+    </div>
+    </>
+  );
 };
 
 window.onload = init;

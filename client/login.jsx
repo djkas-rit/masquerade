@@ -1,6 +1,7 @@
 const helper = require('./helper.js');
 const React = require('react');
 const { createRoot } = require('react-dom/client');
+const NavbarComponent = require('./Navbar.jsx').default;
 
 const handleLogin = (e) => {
     e.preventDefault();
@@ -55,7 +56,7 @@ const LoginWindow = (props) => {
             <label htmlFor="pass">Password:</label>
             <input id="pass" type="text" name="pass" placeholder="password" />
             <input className="formSubmit" type="submit" value="Sign in" />
-        </form>        
+        </form>
     );
 }
 
@@ -75,29 +76,63 @@ const SignupWindow = (props) => {
             <label htmlFor="pass2">Password:</label>
             <input id="pass2" type="password" name="pass2" placeholder="retype password" />
             <input className="formSubmit" type="submit" value="Sign up" />
-        </form>        
+        </form>
     );
 }
 
 const init = () => {
-    const loginButton = document.getElementById('loginButton');
-    const signupButton = document.getElementById('signupButton');
+    const root = createRoot(document.getElementById('app'));
 
-    const root = createRoot(document.getElementById('content'));
+    const renderLogin = () => {
+        root.render(
+            <>
+                <NavbarComponent isLoggedIn={false} />
+                <div id="content">
+                    <h1>Log in</h1>
+                    <LoginWindow />
+                </div>
+            </>
+        );
+    };
 
-    loginButton.addEventListener('click', (e) => {
-        e.preventDefault();
-        root.render( <LoginWindow /> );
-        return false;
-    });
+    const renderSignup = () => {
+        root.render(
+            <>
+                <NavbarComponent isLoggedIn={false} />
+                <div id="content">
+                    <h1>Sign up</h1>
+                    <SignupWindow />
+                </div>
+            </>
+        );
+    };
 
-    signupButton.addEventListener('click', (e) => {
-        e.preventDefault();
-        root.render( <SignupWindow /> );
-        return false;
-    });
+    root.render(
+        <>
+            <NavbarComponent isLoggedIn={false} />
+            <div id="content">
+                <h1>Log in</h1>
+                <LoginWindow />
+            </div>
+        </>
+    );
 
-    root.render( <LoginWindow /> );
-}
+    setTimeout(() => {
+        const loginButton = document.getElementById('loginButton');
+        const signupButton = document.getElementById('signupButton');
+
+        loginButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            renderLogin();
+            return false;
+        });
+
+        signupButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            renderSignup();
+            return false;
+        });
+    }, 0);
+};
 
 window.onload = init;

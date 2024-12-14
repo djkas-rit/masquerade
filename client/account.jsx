@@ -2,6 +2,7 @@ const React = require('react');
 const { createRoot } = require('react-dom/client');
 const PasswordChangeForm = require('./PasswordChangeForm.jsx').default;
 const PersonaList = require('./list.jsx').default;
+const NavbarComponent = require('./Navbar.jsx').default;
 
 const AccountPage = () => (
   <div>
@@ -20,8 +21,15 @@ const AccountPage = () => (
 );
 
 const init = () => {
-  const root = createRoot(document.getElementById('content'));
-  root.render(<AccountPage />);
+  const root = createRoot(document.getElementById('app'));
+  root.render(
+    <>
+      <NavbarComponent isLoggedIn={true} />
+      <div id="content">
+        <AccountPage />
+      </div>
+    </>
+  );
 };
 
 window.onload = init;
