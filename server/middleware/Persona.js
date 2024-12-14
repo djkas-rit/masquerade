@@ -1,5 +1,7 @@
 const models = require('../models');
 
+const PRO_LIMIT = 5; // max number of characters (inclusive) for non-pro users
+
 const { Persona } = models;
 
 const makerPage = (req, res) => res.render('maker');
@@ -31,6 +33,11 @@ const createPersona = async (req, res) => {
     return res.status(400).json({ error: 'Name is required.' });
   }
 
+  const personaCount = await Persona.countDocuments({ owner: req.session.account._id }).exec();
+  if (!req.session.account.isPro && personaCount >= PRO_LIMIT) {
+    return res.status(403).json({ error: 'Upgrade to Masquerade Pro to create more characters.' });
+  }
+
   const personaData = {
     name: req.body.name,
     nickname: req.body.nickname || '',
@@ -59,9 +66,9 @@ const createPersona = async (req, res) => {
   } catch (err) {
     console.log(err);
     if (err.code === 11000) {
-      return res.status(400).json({ error: 'This character already exists.' });
+      return res.status(403).json({ error: 'This character already exists.' });
     }
-    return res.status(400).json({ error: 'An error occurred while creating the character.' });
+    return res.status(500).json({ error: 'An error occurred while creating the character.' });
   }
 };
 

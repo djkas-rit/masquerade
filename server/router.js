@@ -24,6 +24,10 @@ const router = (app) => {
   app.get('/account', mid.requiresLogin, controllers.Account.accountSettingsPage);
   app.post('/changePassword', mid.requiresLogin, controllers.Account.changePassword);
 
+  app.get('/getProStatus', mid.requiresLogin, controllers.Account.getProStatus);
+  app.post('/subscribe', mid.requiresLogin, controllers.Account.subscribe);
+  app.post('/unsubscribe', mid.requiresLogin, controllers.Account.unsubscribe);
+
   app.get('/', mid.requiresSecure, mid.requiresLogout, controllers.Account.loginPage);
 };
 

@@ -21,6 +21,10 @@ const AccountSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+  isPro: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 AccountSchema.statics.toAPI = (doc) => ({
@@ -51,6 +55,24 @@ AccountSchema.statics.changePassword = async (username, newPassword, callback) =
   try {
     const hash = await AccountModel.generateHash(newPassword);
     await AccountModel.findOneAndUpdate({ username }, { password: hash }).exec();
+    return callback();
+  } catch (err) {
+    return callback(err);
+  }
+};
+
+AccountSchema.statics.subscribe = async (username, callback) => {
+  try {
+    await AccountModel.findOneAndUpdate({ username }, { isPro: true }).exec();
+    return callback();
+  } catch (err) {
+    return callback(err);
+  }
+};
+
+AccountSchema.statics.unsubscribe = async (username, callback) => {
+  try {
+    await AccountModel.findOneAndUpdate({ username }, { isPro: false }).exec();
     return callback();
   } catch (err) {
     return callback(err);

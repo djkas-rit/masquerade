@@ -83,6 +83,42 @@ const changePassword = async (req, res) => {
   });
 };
 
+const getProStatus = async (req, res) => {
+  const { username } = req.session.account;
+
+  try {
+    const account = await Account.findOne({ username }).exec();
+    return res.json({ isPro: account.isPro });
+  }
+  catch (err) {
+    return res.status(500).json({ error: `An error occurred: ${err}` });
+  }
+};
+
+const subscribe = async (req, res) => {
+  const { username } = req.session.account;
+
+  try {
+    await Account.subscribe(username, () => {});
+    req.session.account.isPro = true;
+    return res.json({ message: 'Subscribed to pro membership.' });
+  } catch (err) {
+    return res.status(500).json({ error: `An error occurred: ${err}` });
+  }
+};
+
+const unsubscribe = async (req, res) => {
+  const { username } = req.session.account;
+
+  try {
+    await Account.unsubscribe(username, () => {});
+    req.session.account.isPro = false;
+    return res.json({ message: 'Unsubscribed from pro membership.' });
+  } catch (err) {
+    return res.status(500).json({ error: `An error occurred: ${err}` });
+  }
+};
+
 module.exports = {
   loginPage,
   login,
@@ -90,4 +126,7 @@ module.exports = {
   signup,
   accountSettingsPage: accountPage,
   changePassword,
+  getProStatus,
+  subscribe,
+  unsubscribe,
 };
